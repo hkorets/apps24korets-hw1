@@ -3,15 +3,17 @@ package ua.edu.ucu.apps.tempseries;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
-    private static final double ABSOLUTE_ZERO_CELSIUS = -273.15; // Move static variable declaration here
-    private double[] temperatureSeries;
-    private int size;
+    private static final double ABSOLUTE_ZERO_CELSIUS = -273.15; // Constant for absolute zero
+    private double[] temperatureSeries; // Array to hold temperature data
+    private int size; // Current size of the array
 
+    // Constructor for empty temperature series
     public TemperatureSeriesAnalysis() {
         this.temperatureSeries = new double[0];
         this.size = 0;
     }
 
+    // Constructor with initial temperature series
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (double temp : temperatureSeries) {
             if (temp < ABSOLUTE_ZERO_CELSIUS) {
@@ -22,6 +24,7 @@ public class TemperatureSeriesAnalysis {
         this.size = temperatureSeries.length;
     }
 
+    // Method to calculate the average temperature
     public double average() {
         if (size == 0) {
             throw new IllegalArgumentException("No data");
@@ -33,6 +36,7 @@ public class TemperatureSeriesAnalysis {
         return sum / size;
     }
 
+    // Method to calculate the standard deviation of temperatures
     public double deviation() {
         if (size == 0) {
             throw new IllegalArgumentException("No data");
@@ -45,6 +49,7 @@ public class TemperatureSeriesAnalysis {
         return Math.sqrt(sumOfSquares / size);
     }
 
+    // Method to find the minimum temperature
     public double min() {
         if (size == 0) {
             throw new IllegalArgumentException("No data");
@@ -58,6 +63,7 @@ public class TemperatureSeriesAnalysis {
         return min;
     }
 
+    // Method to find the maximum temperature
     public double max() {
         if (size == 0) {
             throw new IllegalArgumentException("No data");
@@ -71,6 +77,7 @@ public class TemperatureSeriesAnalysis {
         return max;
     }
 
+    // Method to find the temperature closest to zero
     public double findTempClosestToZero() {
         if (size == 0) {
             throw new IllegalArgumentException("No data");
@@ -84,6 +91,7 @@ public class TemperatureSeriesAnalysis {
         return closestToZero;
     }
 
+    // Method to find the temperature closest to a specified value
     public double findTempClosestToValue(double tempValue) {
         if (size == 0) {
             throw new IllegalArgumentException("No data");
@@ -97,7 +105,8 @@ public class TemperatureSeriesAnalysis {
         return closestToValue;
     }
 
-    public double[] findTempsLessThan(double tempValue) { // Fixed typo in method name
+    // Method to find temperatures less than a specified value
+    public double[] findTempsLessThan(double tempValue) {
         int count = 0;
         for (int i = 0; i < size; i++) {
             if (temperatureSeries[i] < tempValue) {
@@ -114,7 +123,8 @@ public class TemperatureSeriesAnalysis {
         return res;
     }
 
-    public double[] findTempsGreaterThan(double tempValue) { // Fixed typo in method name
+    // Method to find temperatures greater than a specified value
+    public double[] findTempsGreaterThan(double tempValue) {
         int count = 0;
         for (int i = 0; i < size; i++) {
             if (temperatureSeries[i] > tempValue) {
@@ -131,6 +141,7 @@ public class TemperatureSeriesAnalysis {
         return res;
     }
 
+    // Method to find temperatures within a specified range
     public double[] findTempsInRange(double lowerBound, double upperBound) {
         int count = 0;
         for (int i = 0; i < size; i++) {
@@ -148,13 +159,40 @@ public class TemperatureSeriesAnalysis {
         return res;
     }
 
+    // Method to reset the temperature series
     public void reset() {
         temperatureSeries = new double[0];
         size = 0;
     }
 
+    // Method to sort temperatures using bubble sort
     public double[] sortTemps() {
-        double[] 
+        double[] sorted = new double[size];
+        for (int i = 0; i < size; i++) {
+            sorted[i] = temperatureSeries[i];
+        }
+
+        // Bubble sort implementation
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = 0; j < size - i - 1; j++) {
+                if (sorted[j] > sorted[j + 1]) {
+                    double temp = sorted[j];
+                    sorted[j] = sorted[j + 1];
+                    sorted[j + 1] = temp;
+                }
+            }
+        }
+        return sorted;
+    }
+
+    // Method to return summary statistics
+    public TempSummaryStatistics summaryStatistics() {
+        if (size == 0) {
+            throw new IllegalArgumentException("No data");
+        }
+        return new TempSummaryStatistics(average(), deviation(), min(), max());
+    }
+}
 
 
 
