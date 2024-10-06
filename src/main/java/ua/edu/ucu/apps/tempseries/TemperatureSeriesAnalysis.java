@@ -17,8 +17,8 @@ public class TemperatureSeriesAnalysis {
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (double temp : temperatureSeries) {
             if (temp < ABSOLUTE_ZERO_CELSIUS) {
-                throw new InputMismatchException("Temperature " + 
-                                "can't be less than -273°C.");
+                throw new InputMismatchException("Temperature " 
+                                    + "can't be less than -273°C.");
             }
         }
         this.temperatureSeries = temperatureSeries.clone();
@@ -156,7 +156,8 @@ public class TemperatureSeriesAnalysis {
         double[] res = new double[count];
         int j = 0;
         for (int i = 0; i < size; i++) {
-            if (temperatureSeries[i] > lowerBound && temperatureSeries[i] < upperBound) {
+            if (temperatureSeries[i] > lowerBound && temperatureSeries[i] 
+                < upperBound) {
                 res[j++] = temperatureSeries[i];
             }
         }
