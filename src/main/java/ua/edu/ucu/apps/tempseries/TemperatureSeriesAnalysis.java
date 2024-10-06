@@ -90,7 +90,8 @@ public class TemperatureSeriesAnalysis {
         }
         double closestToValue = temperatureSeries[0];
         for (double temp : temperatureSeries) {
-            if (Math.abs(temp - tempValue) < Math.abs(closestToValue - tempValue)) {
+            if (Math.abs(temp - tempValue) < 
+                Math.abs(closestToValue - tempValue)) {
                 closestToValue = temp;
             }
         }
