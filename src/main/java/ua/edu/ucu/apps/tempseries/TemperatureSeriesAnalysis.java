@@ -3,9 +3,9 @@ package ua.edu.ucu.apps.tempseries;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
-    private static final double ABSOLUTE_ZERO_CELSIUS = -273.15; // Constant for absolute zero
-    private double[] temperatureSeries; // Array to hold temperature data
-    private int size; // Current size of the array
+    private static final double ABSOLUTE_ZERO_CELSIUS = -273.15;
+    private double[] temperatureSeries;
+    private int size;
 
     // Constructor for empty temperature series
     public TemperatureSeriesAnalysis() {
@@ -17,7 +17,8 @@ public class TemperatureSeriesAnalysis {
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (double temp : temperatureSeries) {
             if (temp < ABSOLUTE_ZERO_CELSIUS) {
-                throw new InputMismatchException("Temperature can't be less than -273°C.");
+                throw new InputMismatchException("Temperature " + 
+                                "can't be less than -273°C.");
             }
         }
         this.temperatureSeries = temperatureSeries.clone();
@@ -98,7 +99,8 @@ public class TemperatureSeriesAnalysis {
         }
         double closestToValue = temperatureSeries[0];
         for (double temp : temperatureSeries) {
-            if (Math.abs(temp - tempValue) < Math.abs(closestToValue - tempValue)) {
+            if (Math.abs(temp - tempValue) 
+                < Math.abs(closestToValue - tempValue)) {
                 closestToValue = temp;
             }
         }
@@ -142,10 +144,12 @@ public class TemperatureSeriesAnalysis {
     }
 
     // Method to find temperatures within a specified range
-    public double[] findTempsInRange(double lowerBound, double upperBound) {
+    public double[] findTempsInRange(double lowerBound,
+                                     double upperBound) {
         int count = 0;
         for (int i = 0; i < size; i++) {
-            if (temperatureSeries[i] > lowerBound && temperatureSeries[i] < upperBound) {
+            if (temperatureSeries[i] > lowerBound 
+                && temperatureSeries[i] < upperBound) {
                 count++;
             }
         }
