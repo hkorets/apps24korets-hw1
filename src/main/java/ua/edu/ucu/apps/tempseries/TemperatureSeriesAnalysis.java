@@ -14,7 +14,8 @@ public class TemperatureSeriesAnalysis {
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (double temp : temperatureSeries) {
             if (temp < -273) {
-                throw new InputMismatchException("Temperature can't be less than -273°C.");
+                throw new InputMismatchException("Temperature" + 
+        "can't be less than -273°C.");
             }
         }
         this.temperatureSeries = temperatureSeries.clone();
