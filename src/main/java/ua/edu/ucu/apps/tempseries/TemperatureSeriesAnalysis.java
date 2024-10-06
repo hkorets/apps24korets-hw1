@@ -3,9 +3,9 @@ package ua.edu.ucu.apps.tempseries;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
+    private static final double ABSOLUTE_ZERO_CELSIUS = -273.15; // Move static variable declaration here
     private double[] temperatureSeries;
     private int size;
-    private static final double ABSOLUTE_ZERO_CELSIUS = -273.15;
 
     public TemperatureSeriesAnalysis() {
         this.temperatureSeries = new double[0];
@@ -77,8 +77,7 @@ public class TemperatureSeriesAnalysis {
         }
         double closestToZero = temperatureSeries[0];
         for (double temp : temperatureSeries) {
-            if (Math.abs(temp) < Math.abs(closestToZero) || 
-                (Math.abs(temp) == Math.abs(closestToZero) && temp > closestToZero)) {
+            if (Math.abs(temp) < Math.abs(closestToZero)) {
                 closestToZero = temp;
             }
         }
@@ -91,43 +90,42 @@ public class TemperatureSeriesAnalysis {
         }
         double closestToValue = temperatureSeries[0];
         for (double temp : temperatureSeries) {
-            if (Math.abs(temp - tempValue) < Math.abs(closestToValue - tempValue) || 
-                (Math.abs(temp - tempValue) == Math.abs(closestToValue - tempValue) && temp > closestToValue)) {
+            if (Math.abs(temp - tempValue) < Math.abs(closestToValue - tempValue)) {
                 closestToValue = temp;
             }
         }
         return closestToValue;
     }
 
-    public double[] findTempsLessThen(double tempValue) {
+    public double[] findTempsLessThan(double tempValue) { // Fixed typo in method name
         int count = 0;
-        for (double temp : temperatureSeries) {
-            if (temp < tempValue) {
+        for (int i = 0; i < size; i++) {
+            if (temperatureSeries[i] < tempValue) {
                 count++;
             }
         }
         double[] res = new double[count];
         int j = 0;
-        for (double temp : temperatureSeries) {
-            if (temp < tempValue) {
-                res[j++] = temp;
+        for (int i = 0; i < size; i++) {
+            if (temperatureSeries[i] < tempValue) {
+                res[j++] = temperatureSeries[i];
             }
         }
         return res;
     }
 
-    public double[] findTempsGreaterThen(double tempValue) {
+    public double[] findTempsGreaterThan(double tempValue) { // Fixed typo in method name
         int count = 0;
-        for (double temp : temperatureSeries) {
-            if (temp > tempValue) {
+        for (int i = 0; i < size; i++) {
+            if (temperatureSeries[i] > tempValue) {
                 count++;
             }
         }
         double[] res = new double[count];
         int j = 0;
-        for (double temp : temperatureSeries) {
-            if (temp > tempValue) {
-                res[j++] = temp;
+        for (int i = 0; i < size; i++) {
+            if (temperatureSeries[i] > tempValue) {
+                res[j++] = temperatureSeries[i];
             }
         }
         return res;
@@ -135,16 +133,16 @@ public class TemperatureSeriesAnalysis {
 
     public double[] findTempsInRange(double lowerBound, double upperBound) {
         int count = 0;
-        for (double temp : temperatureSeries) {
-            if (temp > lowerBound && temp < upperBound) {
+        for (int i = 0; i < size; i++) {
+            if (temperatureSeries[i] > lowerBound && temperatureSeries[i] < upperBound) {
                 count++;
             }
         }
         double[] res = new double[count];
         int j = 0;
-        for (double temp : temperatureSeries) {
-            if (temp > lowerBound && temp < upperBound) {
-                res[j++] = temp;
+        for (int i = 0; i < size; i++) {
+            if (temperatureSeries[i] > lowerBound && temperatureSeries[i] < upperBound) {
+                res[j++] = temperatureSeries[i];
             }
         }
         return res;
@@ -156,35 +154,7 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double[] sortTemps() {
-        double[] sorted = temperatureSeries.clone();
-        java.util.Arrays.sort(sorted);
-        return sorted;
-    }
-
-    public TempSummaryStatistics summaryStatistics() {
-        if (size == 0) {
-            throw new IllegalArgumentException("No data");
-        }
-        return new TempSummaryStatistics(average(), deviation(), min(), max());
-    }
-
-    public int addTemps(double... temps) {
-        for (double temp : temps) {
-            if (temp < ABSOLUTE_ZERO_CELSIUS) {
-                throw new InputMismatchException("Temperature can't be less than -273°C.");
-            }
-        }
-        if (size + temps.length > temperatureSeries.length) {
-            int newCapacity = Math.max(size + temps.length, temperatureSeries.length * 2);
-            double[] newTemperatureSeries = new double[newCapacity];
-            System.arraycopy(temperatureSeries, 0, newTemperatureSeries, 0, size);
-            temperatureSeries = newTemperatureSeries;
-        }
-        System.arraycopy(temps, 0, temperatureSeries, size, temps.length);
-        size += temps.length;
-        return size;
-    }
-}
+        double[] 
 
 
 
