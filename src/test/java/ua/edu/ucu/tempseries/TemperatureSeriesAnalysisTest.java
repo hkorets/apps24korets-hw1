@@ -16,39 +16,81 @@ public class TemperatureSeriesAnalysisTest {
         assertEquals(expResult, actualResult, 0.00001);
     }
 
-   @Test
-   public void testAverageWithOneElementArray() {
-       // setup input data and expected result
-       double[] temperatureSeries = {-1.0};
-       TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
-       double expResult = -1.0;
+    @Test
+    public void testAverageWithOneElementArray() {
+        double[] temperatureSeries = {-1.0};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+        double expResult = -1.0;
 
-       // call tested method
-       double actualResult = seriesAnalysis.average();
+        double actualResult = seriesAnalysis.average();
+        assertEquals(expResult, actualResult, 0.00001);
+    }
 
-       // compare expected result with actual result
-       assertEquals(expResult, actualResult, 0.00001);
-   }
+    @Test(expected = IllegalArgumentException.class)
+    public void testAverageWithEmptyArray() {
+        double[] temperatureSeries = {};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+        seriesAnalysis.average();
+    }
 
-   @Test(expected = IllegalArgumentException.class)
-   public void testAverageWithEmptyArray() {
-       double[] temperatureSeries = {};
-       TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+    @Test
+    public void testAverage() {
+        double[] temperatureSeries = {3.0, -5.0, 1.0, 5.0};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+        double expResult = 1.0;
 
-       // expect exception here
-       seriesAnalysis.average();
-   }
+        double actualResult = seriesAnalysis.average();
+        assertEquals(expResult, actualResult, 0.00001);
+    }
 
-   @Test
-   public void testAverage() {
-       double[] temperatureSeries = {3.0, -5.0, 1.0, 5.0};
-       TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
-       double expResult = 1.0;
+    @Test
+    public void testAverageWithMultipleElements() {
+        double[] temperatureSeries = {10.0, 20.0, 30.0, 40.0};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+        double expResult = 25.0;
 
-       double actualResult = seriesAnalysis.average();
+        double actualResult = seriesAnalysis.average();
+        assertEquals(expResult, actualResult, 0.00001);
+    }
 
-       assertEquals(expResult, actualResult, 0.00001);
-   }
-    
+    @Test
+    public void testAverageWithNegativeTemperatures() {
+        double[] temperatureSeries = {-10.0, -20.0, -30.0};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+        double expResult = -20.0;
 
+        double actualResult = seriesAnalysis.average();
+        assertEquals(expResult, actualResult, 0.00001);
+    }
+
+    @Test
+    public void testMaxTemperature() {
+        double[] temperatureSeries = {3.0, 5.0, 8.0, -2.0};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+        double expResult = 8.0;
+
+        double actualResult = seriesAnalysis.max();
+        assertEquals(expResult, actualResult, 0.00001);
+    }
+
+    @Test
+    public void testMinTemperature() {
+        double[] temperatureSeries = {3.0, 5.0, 8.0, -2.0};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+        double expResult = -2.0;
+
+        double actualResult = seriesAnalysis.min();
+        assertEquals(expResult, actualResult, 0.00001);
+    }
+
+    @Test
+    public void testTemperatureRange() {
+        double[] temperatureSeries = {1.0, 5.0, 10.0, -5.0};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+        double expResult = 15.0;
+
+        double actualResult = seriesAnalysis.max() - seriesAnalysis.min();
+        assertEquals(expResult, actualResult, 0.00001);
+    }
 }
+
