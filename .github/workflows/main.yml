@@ -23,14 +23,14 @@ jobs:
         run: mvn -B package --file pom.xml                 
         continue-on-error: true    
 
-      - name: Upload Report
+      - name: Upload JaCoCo Report
         uses: 'actions/upload-artifact@v3'
         with:
           name: jacoco-report
           path: |
             ${{ github.workspace }}/target/site/jacoco/jacoco.xml
             ${{ github.workspace }}/target/site/jacoco/index.html
-       
+
       - name: Add coverage to PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
@@ -43,3 +43,4 @@ jobs:
           update-comment: true
           pass-emoji: ':green_circle:'
           fail-emoji: ':red_circle:'
+
