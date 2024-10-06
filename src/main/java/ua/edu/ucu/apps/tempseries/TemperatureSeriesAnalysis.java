@@ -5,15 +5,18 @@ import java.util.InputMismatchException;
 public class TemperatureSeriesAnalysis {
     private double[] temperatureSeries;
     private int size;
+    private static final double ABSOLUTE_ZERO_CELSIUS;
+
 
     public TemperatureSeriesAnalysis() {
         this.temperatureSeries = new double[0];
         this.size = 0;
+        private static final double ABSOLUTE_ZERO_CELSIUS = -273.15;
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (double temp : temperatureSeries) {
-            if (temp < -273) {
+            if (temp < ABSOLUTE_ZERO_CELSIUS) {
                 throw new InputMismatchException("Temperature" + 
         "can't be less than -273°C.");
             }
@@ -181,7 +184,7 @@ public class TemperatureSeriesAnalysis {
 
     public int addTemps(double... temps) {
         for (double temp : temps) {
-            if (temp < -273) {
+            if (temp < ABSOLUTE_ZERO_CELSIUS) {
                 throw new InputMismatchException("Temperature can't be less than -273°C.");
             }
         }
